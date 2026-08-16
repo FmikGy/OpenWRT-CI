@@ -26,6 +26,12 @@ CONFIG_PACKAGE_luci-app-openclash=y
 CONFIG_PACKAGE_luci-app-dockerman=y
 
 # =========================
+# 磁盘管理 DiskMan
+# =========================
+
+CONFIG_PACKAGE_luci-app-diskman=y
+
+# =========================
 # Samba
 # =========================
 
