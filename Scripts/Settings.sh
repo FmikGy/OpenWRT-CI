@@ -62,3 +62,11 @@ if [[ "${WRT_TARGET^^}" == *"QUALCOMMAX"* ]]; then
 		echo "qualcommax set up nowifi successfully!"
 	fi
 fi
+
+# OpenSSH：允许 root 使用密码登录
+mkdir -p ./package/base-files/files/etc/ssh/sshd_config.d
+
+cat > ./package/base-files/files/etc/ssh/sshd_config.d/99-openwrt.conf <<'EOF'
+PermitRootLogin yes
+PasswordAuthentication yes
+EOF
