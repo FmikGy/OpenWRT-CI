@@ -1,0 +1,65 @@
+# ==================================================
+# Link NN6000 V2 私人配置
+# ==================================================
+
+# =========================
+# 删除不需要的默认插件
+# =========================
+
+CONFIG_PACKAGE_luci-app-homeproxy=n
+CONFIG_PACKAGE_luci-app-autoreboot=n
+CONFIG_PACKAGE_luci-app-gecoosac=n
+CONFIG_PACKAGE_luci-app-mini-diskmanager=n
+CONFIG_PACKAGE_luci-app-partexp=n
+CONFIG_PACKAGE_luci-app-wolultra=n
+
+# =========================
+# OpenClash
+# =========================
+
+CONFIG_PACKAGE_luci-app-openclash=y
+
+# =========================
+# Docker
+# =========================
+
+CONFIG_PACKAGE_luci-app-dockerman=y
+
+# =========================
+# Samba
+# =========================
+
+CONFIG_PACKAGE_luci-app-samba4=y
+
+# =========================
+# UPnP
+# =========================
+
+CONFIG_PACKAGE_luci-app-upnp=y
+
+# =========================
+# CPU 频率控制
+# =========================
+
+CONFIG_PACKAGE_cpufreq=y
+
+# =========================
+# TTYD 网页终端
+# =========================
+
+CONFIG_PACKAGE_ttyd=y
+CONFIG_PACKAGE_luci-app-ttyd=y
+
+# =========================
+# OpenSSH
+# =========================
+
+CONFIG_PACKAGE_openssh-server=y
+CONFIG_PACKAGE_openssh-keygen=y
+CONFIG_PACKAGE_openssh-sftp-server=y
+
+# =========================
+# 禁用 Dropbear
+# =========================
+
+CONFIG_PACKAGE_dropbear=n
