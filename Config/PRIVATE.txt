@@ -20,6 +20,20 @@ CONFIG_PACKAGE_luci-app-wolultra=n
 CONFIG_PACKAGE_luci-app-openclash=y
 
 # =========================
+# Web 服务 uHTTPd
+# =========================
+
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
+
+# =========================
+# SmartDNS
+# =========================
+
+CONFIG_PACKAGE_smartdns=y
+CONFIG_PACKAGE_luci-app-smartdns=y
+
+# =========================
 # Docker
 # =========================
 
@@ -78,6 +92,47 @@ CONFIG_NODEJS_22=y
 
 CONFIG_PACKAGE_iperf3=y
 CONFIG_PACKAGE_htop=y
+
+# =========================
+# USB 核心与诊断工具
+# =========================
+
+CONFIG_PACKAGE_kmod-usb-core=y
+CONFIG_PACKAGE_kmod-usb2=y
+CONFIG_PACKAGE_kmod-usb3=y
+CONFIG_PACKAGE_usbutils=y
+
+# =========================
+# USB 存储 / U盘 / 移动硬盘
+# =========================
+
+CONFIG_PACKAGE_block-mount=y
+CONFIG_PACKAGE_kmod-usb-storage=y
+CONFIG_PACKAGE_kmod-usb-storage-uas=y
+
+# 常用磁盘文件系统
+CONFIG_PACKAGE_kmod-fs-vfat=y
+CONFIG_PACKAGE_kmod-fs-exfat=y
+CONFIG_PACKAGE_kmod-fs-ext4=y
+CONFIG_PACKAGE_kmod-fs-ntfs3=y
+
+# =========================
+# USB 网络共享 / USB 网卡
+# =========================
+
+CONFIG_PACKAGE_kmod-usb-net=y
+
+# Android / 通用 USB 网络共享
+CONFIG_PACKAGE_kmod-usb-net-rndis=y
+CONFIG_PACKAGE_kmod-usb-net-cdc-ether=y
+CONFIG_PACKAGE_kmod-usb-net-cdc-ncm=y
+
+# ASIX USB 网卡
+CONFIG_PACKAGE_kmod-usb-net-asix=y
+CONFIG_PACKAGE_kmod-usb-net-asix-ax88179=y
+
+# Realtek RTL8152/RTL8153/RTL8156 USB 网卡
+CONFIG_PACKAGE_kmod-usb-net-rtl8152=y
 
 # =========================
 # CPU 频率控制
