@@ -96,9 +96,14 @@ jobs:
         run: |
           WRT_TARGET=$(grep -m 1 -oP '^CONFIG_TARGET_\K[\w]+(?=\=y)' "./Config/$WRT_CONFIG.txt")
           WRT_SUBTARGET=$(grep -m 1 -oP "^CONFIG_TARGET_${WRT_TARGET}_\K[\w]+(?=\=y)" "./Config/$WRT_CONFIG.txt")
+          if grep -q '^CONFIG_LIBC_USE_GLIBC=y$' "./Config/$WRT_CONFIG.txt"; then
+            WRT_LIBC=glibc
+          else
+            WRT_LIBC=musl
+          fi
           WRT_CACHE_SOURCE=${WRT_SOURCE//\//-}
           WRT_CACHE_BRANCH=${WRT_BRANCH//\//-}
-          WRT_CACHE_TARGET="$WRT_TARGET-$WRT_SUBTARGET"
+          WRT_CACHE_TARGET="$WRT_TARGET-$WRT_SUBTARGET-$WRT_LIBC"
           WRT_CACHE_PREFIX="wrt-$WRT_CACHE_SOURCE-$WRT_CACHE_BRANCH-$WRT_CACHE_TARGET"
 
           {
@@ -107,6 +112,7 @@ jobs:
             echo "WRT_MARK=${GITHUB_REPOSITORY%%/*}"
             echo "WRT_TARGET=$WRT_TARGET"
             echo "WRT_SUBTARGET=$WRT_SUBTARGET"
+            echo "WRT_LIBC=$WRT_LIBC"
             echo "WRT_CACHE_TARGET=$WRT_CACHE_TARGET"
             echo "WRT_CACHE_PREFIX=$WRT_CACHE_PREFIX"
             echo "WRT_WIFI=wifi-yes"
@@ -247,10 +253,15 @@ jobs:
 
             find ./bin/targets/ -iregex ".*\(buildinfo\|json\|sha256sums\|packages\)$" -exec rm -rf {} +
 
+            WRT_VARIANT="$WRT_WIFI"
+            if [ "$WRT_LIBC" = "glibc" ]; then
+              WRT_VARIANT="$WRT_WIFI-glibc"
+            fi
+
             for FILE in $(find ./bin/targets/ -type f -iname "*$WRT_TARGET*") ; do
               EXT=$(basename $FILE | cut -d '.' -f 2-)
               NAME=$(basename $FILE | cut -d '.' -f 1 | grep -io "\($WRT_TARGET\).*")
-              NEW_FILE="$NAME"-"$WRT_INFO"-"$WRT_BRANCH"-"$WRT_WIFI"-"$WRT_DATE"."$EXT"
+              NEW_FILE="$NAME"-"$WRT_INFO"-"$WRT_BRANCH"-"$WRT_VARIANT"-"$WRT_DATE"."$EXT"
               mv -f $FILE ./upload/$NEW_FILE
             done
 
@@ -271,6 +282,7 @@ jobs:
 
             配置：${{env.WRT_CONFIG}}
             平台：${{env.WRT_TARGET}}
+            C库：${{env.WRT_LIBC}}
 
             登录地址：${{env.WRT_IP}}
             登录密码：${{env.WRT_PW}}
